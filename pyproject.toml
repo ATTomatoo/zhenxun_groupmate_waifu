@@ -1,0 +1,17 @@
+[project]
+name = "nonebot-plugin-groupmate-waifu"
+version = "0.2.0"
+description = "真寻 Bot 娶群友互动娱乐插件 (深度定制版)"
+readme = "README.md"
+authors = [
+    { name = "ATTomatoo" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "httpx>=0.20.0",
+    "pil-utils>=0.1.7"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
