@@ -34,7 +34,9 @@ __plugin_meta__ = PluginMetadata(
     homepage="https://github.com/ATTomatoo/zhenxun_groupmate_waifu",
     extra={
         "version": "0.0.1",
-        "author": "ATTomatoo"  # 补上作者字段，防止插件索引脚本报错
+        "author": "ATTomatoo",
+        "plugin_type": "NORMAL",
+        "priority": 5
     }
 )
 
