@@ -32,7 +32,10 @@ __plugin_meta__ = PluginMetadata(
     description="群内娶群友、透群友、分手等互动娱乐插件",
     usage="发送指令：娶群友 [@某人] / 透群友 [@某人] / 离婚 / 分手 / 查看群友卡池 / 本群cp",
     homepage="https://github.com/ATTomatoo/zhenxun_groupmate_waifu",
-    extra={"version": "0.0.1"}
+    extra={
+        "version": "0.0.1",
+        "author": "ATTomatoo"  # 补上作者字段，防止插件索引脚本报错
+    }
 )
 
 # ==================== 配置加载 ====================
