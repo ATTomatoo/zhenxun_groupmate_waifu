@@ -10,6 +10,14 @@ from zhenxun.models.user_console import UserConsole
 from zhenxun.utils.enum import GoldHandle
 from nonebot.adapters.onebot.v11 import Message, MessageSegment
 
+QUICK_BREAKUP_PUNISH_PROMPTS = (
+    "不爱为什么还要结婚？渣男！",
+    "刚结婚就急着分手，婚姻可不是儿戏！",
+    "闪婚又闪离？喜新厌旧是要付出代价的！",
+    "说好的白头偕老呢？这笔渣男税你逃不掉！",
+    "感情不是一次性用品，闪离惩罚已执行！",
+)
+
 try:
     import ujson as json
 except ModuleNotFoundError:
@@ -95,15 +103,20 @@ async def breakup(user_id: int, partner_id: int, is_quick_and_initiator: bool, b
         if give_amount > 0:
             await UserConsole.add_gold(str(partner_id), give_amount, 'waifu_plugin')
             
-        msg = Message([
-            MessageSegment.text("闪离惩罚！扣除了 "),
-            MessageSegment.at(user_id),
-            MessageSegment.text(f" {deduct_amount} 金币给 "),
-            MessageSegment.at(partner_id),
-            MessageSegment.text(f"，{bot_name}收取了{fee}手续费，实际{give_amount}金币落入了 "),
-            MessageSegment.at(partner_id),
-            MessageSegment.text(" 的口袋！")
-        ])
+        msg = Message(
+            [
+                MessageSegment.text(
+                    f"{random.choice(QUICK_BREAKUP_PUNISH_PROMPTS)}\n闪离惩罚："
+                ),
+                MessageSegment.at(user_id),
+                MessageSegment.text(
+                    f" 被扣除了 {deduct_amount} 金币，"
+                    f"{bot_name}收取 {fee} 金币手续费，剩余 {give_amount} 金币赔偿给 "
+                ),
+                MessageSegment.at(partner_id),
+                MessageSegment.text("！"),
+            ]
+        )
             
         return {"success": True, "msg": msg}
         

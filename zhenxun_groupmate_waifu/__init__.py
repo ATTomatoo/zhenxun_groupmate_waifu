@@ -8,6 +8,7 @@ from nonebot.adapters.onebot.v11 import (
     Message,
     MessageSegment,
 )
+from zhenxun.configs.utils import PluginExtraData, RegisterConfig
 
 import nonebot
 import os
@@ -29,15 +30,110 @@ from .config import Config, BREAKUP_SUCCESS_RATE, BREAKUP_COOLDOWN
 # ==================== 插件元数据 ====================
 __plugin_meta__ = PluginMetadata(
     name="娶群友",
-    description="群内娶群友、透群友、分手等互动娱乐插件",
-    usage="发送指令：娶群友 [@某人] / 透群友 [@某人] / 离婚 / 分手 / 查看群友卡池 / 本群cp",
+    description="""
+    群内娶群友、透群友、分手等互动娱乐插件。
+    包含分手财产结算、闪离惩罚、小黑屋与连续闪离封禁机制。
+    """.strip(),
+    usage="""
+    指令：
+        娶群友 ?[@某人]
+        透群友 ?[@某人]
+        离婚 / 分手
+        查看群友卡池
+        本群cp
+    """.strip(),
     homepage="https://github.com/ATTomatoo/zhenxun_groupmate_waifu",
-    extra={
-        "version": "0.0.1",
-        "author": "ATTomatoo",
-        "plugin_type": "NORMAL",
-        "priority": 5
-    }
+    extra=PluginExtraData(
+        author="ATTomatoo",
+        version="0.0.2",
+        menu_type="群内小游戏",
+        configs=[
+            RegisterConfig(
+                key="waifu_cd_bye",
+                value=3600,
+                help="分手命令开关与冷却判定，-1 表示禁用分手",
+                default_value=3600,
+                type=int,
+            ),
+            RegisterConfig(
+                key="waifu_save",
+                value=True,
+                help="是否持久化保存娶群友插件数据",
+                default_value=True,
+                type=bool,
+            ),
+            RegisterConfig(
+                key="waifu_reset",
+                value=True,
+                help="是否在每天零点重置 CP 关系和惩罚记录",
+                default_value=True,
+                type=bool,
+            ),
+            RegisterConfig(
+                key="waifu_he",
+                value=65,
+                help="娶指定群友的成功概率",
+                default_value=65,
+                type=int,
+            ),
+            RegisterConfig(
+                key="waifu_be",
+                value=35,
+                help="娶指定群友的失败概率",
+                default_value=35,
+                type=int,
+            ),
+            RegisterConfig(
+                key="waifu_ntr",
+                value=80,
+                help="尝试娶已有 CP 群友时的 NTR 成功概率",
+                default_value=80,
+                type=int,
+            ),
+            RegisterConfig(
+                key="yinpa_he",
+                value=15,
+                help="透非 CP 群友的成功概率",
+                default_value=15,
+                type=int,
+            ),
+            RegisterConfig(
+                key="yinpa_be",
+                value=60,
+                help="透非 CP 群友的失败概率",
+                default_value=60,
+                type=int,
+            ),
+            RegisterConfig(
+                key="yinpa_cp",
+                value=65,
+                help="透自己 CP 的成功概率",
+                default_value=65,
+                type=int,
+            ),
+            RegisterConfig(
+                key="waifu_fee_ratio",
+                value=0.05,
+                help="分手扣款时收取的手续费比例",
+                default_value=0.05,
+                type=float,
+            ),
+            RegisterConfig(
+                key="waifu_punish_min_ratio",
+                value=0.10,
+                help="正常分手触发财产纠纷时的最低扣款比例",
+                default_value=0.10,
+                type=float,
+            ),
+            RegisterConfig(
+                key="waifu_punish_max_ratio",
+                value=0.50,
+                help="正常分手触发财产纠纷时的最高扣款比例",
+                default_value=0.50,
+                type=float,
+            ),
+        ],
+    ).to_dict(),
 )
 
 # ==================== 配置加载 ====================
