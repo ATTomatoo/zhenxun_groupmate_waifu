@@ -45,7 +45,7 @@ __plugin_meta__ = PluginMetadata(
     homepage="https://github.com/ATTomatoo/zhenxun_groupmate_waifu",
     extra=PluginExtraData(
         author="ATTomatoo",
-        version="0.0.2",
+        version="0.0.3",
         menu_type="群内小游戏",
         configs=[
             RegisterConfig(
